@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover table-bordered">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th> </th>
+  </tr>
+  <% obj.each do |article| %>
+    <tr>
+      <td class="col-sm-4"><%= link_to article.title, article_path(article) %></td>
+      <td class="col-sm-6"><%= truncate(article.description, length: 100) %> 
+        <div class="article-details"> Created by: <%= article.user.username if article.user %>, <%= time_ago_in_words(article.created_at) %> ago</div></td>
+      <td class="col-sm-2"><%= link_to 'Edit', edit_article_path(article), class: "btn btn-xs btn-primary" %>
+      <%= link_to 'Delete', article_path(article), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-xs btn-danger" %></td>
+    </tr>
+  <% end %>
+</table>
