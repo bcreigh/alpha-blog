@@ -8,7 +8,12 @@
     <tr>
       <td class="col-sm-4"><%= link_to article.title, article_path(article) %></td>
       <td class="col-sm-6"><%= truncate(article.description, length: 100) %> 
-        <div class="article-details"> Created by: <%= article.user.username if article.user %>, <%= time_ago_in_words(article.created_at) %> ago</div></td>
+        <div class="article-details"> Created by: <%= article.user.username if article.user %>, <%= time_ago_in_words(article.created_at) %> ago</div>
+        <div>
+          <% if article.categories.any? %>
+            Categories: <%= render article.categories %>
+          <% end %>
+        </div></td>
       <td class="col-sm-2">
         <% if logged_in? && (current_user == article.user || current_user.admin?) %>
           <%= link_to 'Edit', edit_article_path(article), class: "btn btn-xs btn-primary" %>
